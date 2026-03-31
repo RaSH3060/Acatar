@@ -1,161 +1,190 @@
-# StreamAvatar - Animated 2D Avatar for Streaming
+# 🎭 StreamAvatar
 
-## Description
-StreamAvatar is a tool for creating animated 2D avatars for streaming via OBS Studio. The application supports multi-layer avatars, skeletal animation, audio effects, and OBS integration through Browser Source.
+**Инструмент для создания анимированных 2D-аватаров для стриминга через OBS Studio**
 
-## Features
+![.NET](https://img.shields.io/badge/.NET-8.0-purple)
+![Platform](https://img.shields.io/badge/platform-Windows-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-### Graphics Engine & Animation
-- **Multi-layer avatars**: Support for body, eyes, mouth layers
-- **Skeletal animation**: Basic bone system for smooth deformation and movement
-- **Shake effect**: Programmatic shake when microphone volume reaches threshold
-- **Eye animation**: Automatic slow idle movement within radius + random blinking
-- **Mouth animation**: Dynamic sprite switching based on audio amplitude analysis
+## ✨ Возможности
 
-### Audio Module
-- Microphone capture with real-time amplitude analysis
-- Audio effects: Reverb, Pitch Shift
-- Virtual microphone output (for sending processed audio to OBS)
-- Automatic lip-sync synchronization with audio intensity
+### Графический движок
+- **Многослойные аватары** — тело, глаза, рот и другие части
+- **Скелетная анимация** — система костей для плавной деформации
+- **Эффект тряски** — при высокой громкости микрофона
+- **Анимация глаз** — idle-движение + рандомное моргание
+- **Синхронизация рта** — по амплитуде звука в реальном времени
 
-### User Interface (UI)
-- **Technology**: WinForms with custom SkiaSharp rendering
-- **Adaptive**: Resizable interface (minimum 800x600)
-- **Design**: Modern dark "gamer" style, intuitive for beginners
-- **Localization**: RU/EN support via external .ini files
-- **Themes**: Custom color schemes via JSON files
+### Аудио-модуль
+- Захват звука с микрофона (NAudio)
+- Анализ амплитуды в реальном времени
+- Эффекты: Reverb, Pitch Shift
+- Виртуальный микрофон (настройка)
 
-### OBS Integration
-- Built-in local HTTP server for Browser Source URL generation
-- Transparent background PNG streaming
-- Preview page with auto-refresh (~60fps)
+### Интерфейс
+- WinForms с кастомными контролами
+- Темный "геймерский" дизайн
+- Интерактивное редактирование слоев (drag & drop)
+- Визуальный редактор костей
+- Контроллер движения глаз
+- Слайдеры параметров анимации
+- Аудио-визуализаторы
 
-### Save System
-- Import/Export avatar presets in custom `.avatar` format
-- Includes animation settings and image paths
+### OBS интеграция
+- Встроенный HTTP-сервер
+- Генерация URL для Browser Source
+- Прозрачный PNG фон
+- Автообновление ~60fps
 
-## Requirements
-- .NET 8.0 SDK
+## 📁 Структура проекта
+
+```
+StreamAvatar/
+├── Core/
+│   ├── Models.cs           # Модели данных (Preset, Layer, Bone)
+│   └── Localization.cs     # Локализация RU/EN
+├── Audio/
+│   └── AudioEngine.cs      # Захват и обработка аудио
+├── Rendering/
+│   ├── AvatarRenderer.cs   # Рендеринг на SkiaSharp
+│   └── AnimationController.cs  # Логика анимации
+├── WebServer/
+│   └── ObsWebServer.cs     # HTTP-сервер для OBS
+├── UI/
+│   ├── MainForm.cs         # Главное окно
+│   ├── Program.cs          # Точка входа
+│   └── Controls/           # Кастомные контролы
+│       ├── AvatarPreviewPanel.cs    # Предпросмотр аватара
+│       ├── LayerEditor.cs           # Редактор слоя
+│       ├── LayerListControl.cs      # Список слоев
+│       ├── BoneEditor.cs            # Редактор костей
+│       ├── EyeMovementController.cs # Управление глазами
+│       ├── AudioLevelMeter.cs       # Визуализатор аудио
+│       ├── AnimationParameterSlider.cs # Слайдеры
+│       └── GdiExtensions.cs         # Расширения GDI+
+├── Assets/
+│   ├── Loc/                # Файлы локализации
+│   └── Themes/             # JSON темы
+├── StreamAvatar.sln
+├── StreamAvatar.csproj
+├── build.bat
+└── README.md
+```
+
+## 🚀 Быстрый старт
+
+### Требования
 - Windows 10/11
+- .NET 8.0 SDK
+- Микрофон
 
-## Build
-
-Run `build.bat` for automatic compilation:
+### Сборка
 
 ```batch
 build.bat
 ```
 
-Or manually via CLI:
-
+Или вручную:
 ```batch
 dotnet publish -c Release -r win-x64 --self-contained false
 ```
 
-## Project Structure
+### Запуск
 
+После сборки исполняемый файл находится в:
 ```
-StreamAvatar/
-├── Core/              # Core classes and utilities (Models, Localization, Theme)
-├── Audio/             # Audio engine (capture, processing, virtual mic)
-├── Rendering/         # Avatar rendering (SkiaSharp, AnimationController)
-├── WebServer/         # HTTP server for OBS Browser Source
-├── UI/                # User interface (WinForms, MainForm)
-├── Assets/
-│   ├── Loc/           # Localization files (RU/EN)
-│   └── Themes/        # Color themes (JSON)
-├── StreamAvatar.sln
-├── StreamAvatar.csproj
-├── app.manifest
-├── build.bat
-└── README.md
+bin/Release/net8.0-windows/win-x64/publish/StreamAvatar.exe
 ```
 
-## Usage
+## 📖 Использование
 
-1. Launch the application
-2. Select or import an avatar preset
-3. Configure audio input (microphone selection)
-4. Adjust animation settings (mouth sensitivity, shake threshold)
-5. Enable audio effects if desired (Reverb, Pitch Shift)
-6. Copy the OBS Browser Source URL from the interface
-7. Add to OBS as "Browser Source" with the URL
+### 1. Создание аватара
 
-### OBS Setup
-- Add new "Browser" source
-- Paste URL: `http://localhost:8080/avatar`
-- Set Width: 512, Height: 512 (or your preferred size)
-- Check "Shutdown source when tab becomes inactive"
-- Enable "Use custom FPS" if needed
+1. Запустите приложение
+2. Перейдите на вкладку **"Слои"**
+3. Добавьте слои кнопкой **"➕ Слой"** или через меню
+4. Перетащите каждый слой мышью для изменения позиции
+5. Измените размер, потянув за желтые ручки
 
-## Localization
+### 2. Настройка скелета
 
-Localization files are in `Assets/Loc/`. Supported formats: `.ini`
-- `ru.ini` — Russian
-- `en.ini` — English
+1. Перейдите на вкладку **"Скелет"**
+2. Добавьте кости через меню **"Правка → Добавить кость"**
+3. Перетащите кости мышью
+4. Привяжите слои к костям в свойствах слоя
 
-Add new languages by creating additional `.ini` files.
+### 3. Настройка анимации
 
-## Themes
+1. Перейдите на вкладку **"Анимация"**
+2. Используйте круговой контроллер для настройки положения глаз
+3. Отрегулируйте слайдерами:
+   - Чувствительность тряски
+   - Частоту моргания
+   - Чувствительность рта
 
-Color schemes are stored in `Assets/Themes/` as JSON files.
+### 4. Подключение к OBS
 
-Included themes:
-- `dark_gamer.json` — Default dark theme
-- `cyberpunk.json` — Neon cyberpunk style
+1. Нажмите кнопку **"🌐 Сервер OBS"**
+2. URL автоматически копируется в буфер обмена
+3. В OBS:
+   - Добавьте источник **"Browser"**
+   - Вставьте URL: `http://localhost:8080/avatar`
+   - Ширина: 800, Высота: 600
+   - Custom CSS:
+     ```css
+     body { margin: 0; background: transparent; }
+     ```
 
-Create custom themes by copying and modifying existing JSON files.
+### 5. Сохранение пресета
 
-## Architecture Overview
+1. Меню **"Файл → Сохранить как..."**
+2. Выберите имя файла с расширением `.avatar`
+3. Для загрузки: **"Файл → Открыть..."**
 
-### Core Classes
-- **AvatarPreset**: Main container for avatar configuration (layers, bones, settings)
-- **AvatarLayer**: Individual sprite layer with properties (image, opacity, bone attachment)
-- **Bone**: Skeletal bone with position, rotation, parent-child hierarchy
-- **AnimationSettings**: Configuration for blink intervals, shake threshold, mouth sensitivity
-- **AudioSettings**: Audio processing configuration (reverb, pitch shift, volume)
+## 🎮 Управление
 
-### Audio Module
-- **AudioEngine**: Handles microphone capture, amplitude analysis
-- **AudioProcessor**: Applies effects (reverb, pitch shift) to audio stream
+| Действие | Управление |
+|----------|------------|
+| Перемещение слоя | Левая кнопка мыши (drag) |
+| Изменение размера | Желтые ручки на углах |
+| Зум предпросмотра | Колесо мыши |
+| Панорамирование | Ctrl + ЛКМ или средняя кнопка |
+| Выбор кости | Клик по кости |
+| Перемещение кости | Drag кости |
 
-### Rendering Module
-- **AvatarRenderer**: SkiaSharp-based renderer for layers and bones
-- **AnimationController**: Manages idle animations, blinking, eye movement, shake effects
+## 🔧 Технические детали
 
-### Web Server
-- **ObsWebServer**: Embedded HTTP server serving avatar as transparent PNG
+### Формат файла .avatar
 
-### UI Module
-- **MainForm**: Main application window with preview canvas and controls
-- **LocalizationManager**: Runtime language switching
-- **ThemeManager**: Dynamic theme application
-
-## File Formats
-
-### Avatar Preset (.avatar)
-JSON-based format containing:
-- Layer definitions with image paths
-- Bone hierarchy
-- Animation settings
-- Audio settings
-
-### Localization (.ini)
-Simple key=value format:
-```ini
-# Comment
-key=Value text
-```
-
-### Theme (.json)
-JSON color scheme:
+JSON формат со следующей структурой:
 ```json
 {
-  "Name": "Theme Name",
-  "BackgroundPrimary": "#1E1E1E",
-  "AccentColor": "#0078D4"
+  "Name": "My Avatar",
+  "Layers": [...],
+  "Bones": [...],
+  "AnimationSettings": {
+    "EyeRadius": 30,
+    "BlinkRate": 2,
+    "ShakeSensitivity": 0.5,
+    "MouthSensitivity": 0.75
+  }
 }
 ```
 
-## License
-MIT
+### API сервера
+
+- `GET /avatar` — HTML страница с аватаром
+- `GET /api/frame` — PNG кадр аватара
+- `GET /api/status` — Статус сервера
+
+## 📝 Лицензия
+
+MIT License — свободное использование с указанием авторства.
+
+## 🤝 Вклад
+
+Проект открыт для pull request'ов и issue report'ов!
+
+---
+
+**StreamAvatar** © 2024 | Создано с ❤️ для стримеров
