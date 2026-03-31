@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using StreamAvatar.Core;
+using StreamAvatar.Rendering;
+using StreamAvatar.Audio;
 
 namespace StreamAvatar.UI.Controls
 {
@@ -10,9 +13,9 @@ namespace StreamAvatar.UI.Controls
     /// </summary>
     public class AvatarPreviewPanel : Panel
     {
-        private Core.Models.AvatarPreset _currentPreset;
-        private Rendering.AvatarRenderer _renderer;
-        private Rendering.AnimationController _animationController;
+        private AvatarPreset _currentPreset;
+        private AvatarRenderer _renderer;
+        private AnimationController _animationController;
         private Timer _renderTimer;
         private bool _isDragging;
         private Point _lastMousePos;
@@ -41,7 +44,7 @@ namespace StreamAvatar.UI.Controls
             MouseUp += AvatarPreviewPanel_MouseUp;
         }
 
-        public void SetPreset(Core.Models.AvatarPreset preset, Audio.AudioEngine audioEngine)
+        public void SetPreset(AvatarPreset preset, AudioEngine audioEngine)
         {
             _currentPreset = preset;
             

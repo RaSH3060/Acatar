@@ -2,6 +2,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using StreamAvatar.Core;
 
 namespace StreamAvatar.UI.Controls
 {
@@ -10,13 +11,13 @@ namespace StreamAvatar.UI.Controls
     /// </summary>
     public class LayerEditor : Panel
     {
-        private Core.Models.AvatarLayer _layer;
+        private AvatarLayer _layer;
         private bool _isDragging;
         private bool _isResizing;
         private Point _lastMousePos;
         private ResizeHandle _currentHandle;
         
-        public event EventHandler<Core.Models.AvatarLayer> OnLayerChanged;
+        public event EventHandler<AvatarLayer> OnLayerChanged;
         
         public LayerEditor()
         {
@@ -29,7 +30,7 @@ namespace StreamAvatar.UI.Controls
             AutoScroll = true;
         }
 
-        public void SetLayer(Core.Models.AvatarLayer layer)
+        public void SetLayer(AvatarLayer layer)
         {
             _layer = layer;
             Invalidate();
