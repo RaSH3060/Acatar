@@ -1,0 +1,59 @@
+```
+# Build artifacts
+*.exe
+*.dll
+*.pdb
+bin/
+obj/
+Debug/
+Release/
+x64/
+x86/
+
+# Dependencies
+packages/
+node_modules/
+.nuget/
+.nyc_output/
+coverage/
+
+# IDE files
+.vs/
+.vscode/
+.idea/
+*.userprefs
+*.userosscache
+*.suo
+*.user
+*.aps
+
+# OS files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+desktop.ini
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Temporary files
+*.tmp
+*.temp
+*.cache
+
+# Compressed files
+*.zip
+*.gz
+*.tar
+*.tgz
+*.bz2
+*.xz
+*.7z
+*.rar
+```
