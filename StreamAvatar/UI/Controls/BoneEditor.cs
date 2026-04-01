@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using StreamAvatar.Core;
 
 namespace StreamAvatar.UI.Controls
 {
@@ -9,13 +10,13 @@ namespace StreamAvatar.UI.Controls
     /// </summary>
     public class BoneEditor : Panel
     {
-        private Core.Models.AvatarPreset _preset;
-        private Core.Models.Bone _selectedBone;
+        private AvatarPreset _preset;
+        private Bone _selectedBone;
         private bool _isDragging;
         private Point _lastMousePos;
         
-        public event EventHandler<Core.Models.Bone> OnBoneSelected;
-        public event EventHandler<Core.Models.Bone> OnBoneMoved;
+        public event EventHandler<Bone> OnBoneSelected;
+        public event EventHandler<Bone> OnBoneMoved;
 
         public BoneEditor()
         {
@@ -27,13 +28,13 @@ namespace StreamAvatar.UI.Controls
             BackColor = Color.FromArgb(35, 35, 35);
         }
 
-        public void SetPreset(Core.Models.AvatarPreset preset)
+        public void SetPreset(AvatarPreset preset)
         {
             _preset = preset;
             Invalidate();
         }
 
-        public void SelectBone(Core.Models.Bone bone)
+        public void SelectBone(Bone bone)
         {
             _selectedBone = bone;
             OnBoneSelected?.Invoke(this, bone);
@@ -75,7 +76,7 @@ namespace StreamAvatar.UI.Controls
             }
         }
 
-        private void DrawBone(Graphics g, Core.Models.Bone bone)
+        private void DrawBone(Graphics g, Bone bone)
         {
             // Рисуем связь с родительской костью
             if (bone.Parent != null)
@@ -192,12 +193,12 @@ namespace StreamAvatar.UI.Controls
             Cursor = Cursors.Default;
         }
 
-        public void AddBone(string name, Point position, Core.Models.Bone parent = null)
+        public void AddBone(string name, Point position, Bone parent = null)
         {
             if (_preset == null)
-                _preset = new Core.Models.AvatarPreset();
+                _preset = new AvatarPreset();
             
-            var bone = new Core.Models.Bone
+            var bone = new Bone
             {
                 Name = name,
                 Position = position,

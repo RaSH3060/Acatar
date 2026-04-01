@@ -25,7 +25,7 @@ namespace StreamAvatar.UI
         private ThemeManager _themeManager;
         
         // UI Controls
-        private GLControl _previewCanvas;
+        private SKControl _previewCanvas;
         private Label lblStatus;
         private Button btnStartAudio;
         private Button btnStopAudio;
@@ -96,8 +96,8 @@ namespace StreamAvatar.UI
             this.StartPosition = FormStartPosition.CenterScreen;
             this.DoubleBuffered = true;
             
-            // Preview canvas (SkiaSharp GL control)
-            _previewCanvas = new GLControl();
+            // Preview canvas (SkiaSharp control)
+            _previewCanvas = new SKControl();
             _previewCanvas.Dock = DockStyle.Fill;
             _previewCanvas.PaintSurface += OnPaintSurface;
             
@@ -297,10 +297,10 @@ namespace StreamAvatar.UI
             this.Controls.Add(lblStatus);
         }
         
-        private void OnPaintSurface(object? sender, SKPaintGLSurfaceEventArgs e)
+        private void OnPaintSurface(object? sender, SKPaintSurfaceEventArgs e)
         {
-            _renderer.CanvasWidth = e.BackendRenderTarget.Width;
-            _renderer.CanvasHeight = e.BackendRenderTarget.Height;
+            _renderer.CanvasWidth = e.Info.Width;
+            _renderer.CanvasHeight = e.Info.Height;
             _renderer.Render(e.Surface.Canvas);
         }
         

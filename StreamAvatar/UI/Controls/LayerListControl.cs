@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using StreamAvatar.Core;
 
 namespace StreamAvatar.UI.Controls
 {
@@ -10,7 +11,7 @@ namespace StreamAvatar.UI.Controls
     /// </summary>
     public class LayerListControl : ListBox
     {
-        private Core.Models.AvatarPreset _preset;
+        private AvatarPreset _preset;
         private bool _isDragging;
         private int _dragStartIndex = -1;
         
@@ -38,7 +39,7 @@ namespace StreamAvatar.UI.Controls
             };
         }
 
-        public void SetPreset(Core.Models.AvatarPreset preset)
+        public void SetPreset(AvatarPreset preset)
         {
             _preset = preset;
             UpdateItems();
@@ -169,7 +170,7 @@ namespace StreamAvatar.UI.Controls
         {
             if (_preset == null) return;
             
-            var newLayer = new Core.Models.AvatarLayer
+            var newLayer = new AvatarLayer
             {
                 Name = $"Layer {_preset.Layers.Count + 1}",
                 Position = new Point(100, 100),
